@@ -1,0 +1,161 @@
+class Patient:
+    def __init__(self, name, age, gender, contact_info):
+        self.name = name
+        self.age = age
+        self.gender = gender
+        self.contact_info = contact_info
+        self.medical_history=[]
+        self.appointments=[]
+
+    def update_medical_history(self, history_updates):
+        self.medical_history.append(history_updates)
+
+    def view_medical_history(self):
+        print("Medical records:")
+        for i in self.medical_history:
+            print(i)
+
+    def book_appointment(self, date, slot, reason):
+        appointment={'date':date,'slot':slot,'reason':reason}
+        self.appointments.append(appointment)
+    def view_appointments(self):
+        print(f"Upcoming Appointments: ")
+        for element in self.appointments:
+            print(f"Date: {element['date']}")
+            print(f"Slot number: {element['slot']}")
+            print(f"Reason for appointment: {element['reason']}")
+        
+
+class Doctor:
+    def __init__(self, name, age, gender, contact_info, specialization):
+        self.name = name
+        self.age = age
+        self.gender = gender
+        self.contact_info = contact_info
+        self.appointments=[]
+        self.patient_list = []
+        self.specialisation = specialization
+
+    def update_patient_list(self, patient_updates):
+        self.patient_list.append(patient_updates)
+
+    def add_appointment(self, date, slot, reason):
+        appointment={'date':date,'slot':slot,'reason':reason}
+        self.appointments.append(appointment)
+
+    def view_appointments(self):
+        print(f"Upcoming Appointments: ")
+        for element in self.appointments:
+            print(f"Date: {element['date']}")
+            print(f"Slot number: {element['slot']}")
+            print(f"Reason for appointment: {element['reason']}")
+
+    def view_patient_list(self):
+        print(f"Patient List:")
+        for element in self.patient_list:
+            print(f"Name: {element.name}")
+            print(f"Age: {element.age}")
+            print(f"Gender: {element.gender}")
+            print(f"Phone number: {element.contact_info}")
+            print()
+
+print("-------------------------------------")
+print("-------------------------------------")
+print("     WELCOME TO MEDCONNECT           ")
+print("-------------------------------------")
+print("-------------------------------------")
+
+
+print("Are you a 1. doctor, or 2. patient ?")
+choice=int(input("Enter choice 1 or 2: "))
+if choice==1:
+    name=input("Enter your name: ")
+    age=input("Enter your age: ")
+    gender=input("Enter your gender: ")
+    contact=input("Enter your phone number: ")
+    specialization=input("What do you specialize in? ")
+    print()
+    doctor=Doctor(name,age,gender,contact,specialization)
+    flag=True
+    while(flag==True):
+        print("1. Add a patient to your list")
+        print("2. View your patient list")
+        print("3. Schedule an appointment")
+        print("4. View your upcoming appointments")
+        print("5. Exit")
+        choice1=int(input("Enter your choice- 1, 2, 3, or 4: "))
+        if choice1 == 1:
+            n=input("Enter name of patient: ")
+            a=input("Enter age of patient: ")
+            g=input("Enter gender of patient: ")
+            c=input("Enter contact number of patient: ")
+            patient=Patient(n,a,g,c)
+            doctor.update_patient_list(patient)
+        elif choice1 == 2:
+            doctor.view_patient_list()
+        elif choice1 == 3:
+            date=input("Enter date (example: 3.5.2023): ")
+            print("TIME SLOTS FOR APPOINTMENTS")
+            print("SLOT 1: 11:00 am - 11:30 am")
+            print("SLOT 2: 11:30 am - 12:00 pm")
+            print("SLOT 3: 12:00 pm - 12:30 pm")
+            print("SLOT 4: 12:30 pm - 1:00 pm")
+            print("SLOT 5: 1:30 pm - 1:30 pm")
+            print("SLOT 6: 1:00 pm - 2:00 pm")
+            print("SLOT 7: 2:30 pm - 2:30 pm")
+            print("SLOT 8: 2:00 pm - 3:00 pm")
+            print("SLOT 9: 3:30 pm - 3:30 pm")
+            print("SLOT 10: 3:00 pm - 4:00 pm")
+            slot=input("Enter slot number: ")
+            reason=input("Enter reason for meeting: ")
+            doctor.add_appointment(date,slot,reason)
+        elif choice1 == 4:
+            doctor.view_appointments()
+        elif choice1 == 5:
+            flag=False
+        else:
+            print("Wrong choice!")
+elif choice==2:
+    name=input("Enter your name: ")
+    age=input("Enter your age: ")
+    gender=input("Enter your gender: ")
+    contact=input("Enter your phone number: ")
+    patient=Patient(name,age,gender,contact)
+    print()
+    flag=True
+    while (flag==True):
+        print("1. Update medical history")
+        print("2. View your medical history")
+        print("3. Book an appointment")
+        print("4. View upcoming appointments")
+        print("5. Exit")
+        choice2=int(input("Enter choice-1, 2, or 3: "))
+        if choice2 == 1:
+            med_hist=input("Enter medical issue: ")
+            patient.update_medical_history(med_hist)
+        elif choice2 == 2:
+            patient.view_medical_history()
+        elif choice2 == 3:
+            date=input("Enter date (example: 3.5.2023): ")
+            print("TIME SLOTS FOR APPOINTMENTS")
+            print("SLOT 1: 11:00 am - 11:30 am")
+            print("SLOT 2: 11:30 am - 12:00 pm")
+            print("SLOT 3: 12:00 pm - 12:30 pm")
+            print("SLOT 4: 12:30 pm - 1:00 pm")
+            print("SLOT 5: 1:30 pm - 1:30 pm")
+            print("SLOT 6: 1:00 pm - 2:00 pm")
+            print("SLOT 7: 2:30 pm - 2:30 pm")
+            print("SLOT 8: 2:00 pm - 3:00 pm")
+            print("SLOT 9: 3:30 pm - 3:30 pm")
+            print("SLOT 10: 3:00 pm - 4:00 pm")
+            slot=input("Enter slot number: ")
+            reason=input("Enter reason for meeting: ")
+            patient.book_appointment(date,slot,reason)
+        elif choice2 == 4:
+            patient.view_appointments()
+        elif choice2 == 5:
+            flag=False
+        else:
+            print("Wrong choice")
+else:
+    print("Wrong choice")
